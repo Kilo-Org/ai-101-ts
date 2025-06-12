@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "./node_modules/typescript/bin/tsc -p ./js/ && node ./node_modules/browserify/bin/cmd.js ./js/app.js -o ./js/bundle.js",
+    "build": "./node_modules/typescript/bin/tsc -p ./source/ --outDir ./dist/raw_js && node ./node_modules/browserify/bin/cmd.js ./dist/raw_js/app.js -o ./dist/bundle.js",
     "start": "node ./serve.js"
   },
   "dependencies": {
