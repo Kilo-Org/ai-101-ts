@@ -11,8 +11,7 @@
         "noImplicitAny": false,
         "removeComments": true,
         "noLib": false,
-        "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true
+        "preserveConstEnums": true
     },
     "filesGlob": [
         "**/*.ts",
