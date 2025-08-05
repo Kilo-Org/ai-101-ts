@@ -6,7 +6,7 @@
 
 /// <reference path="./interfaces.d.ts"/>
 
-import * as classNames from "classnames";
+import classNames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { ENTER_KEY, ESCAPE_KEY } from "./constants";

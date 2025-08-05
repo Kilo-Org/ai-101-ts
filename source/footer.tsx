@@ -6,7 +6,7 @@
 
 /// <reference path="./interfaces.d.ts"/>
 
-import * as classNames from "classnames";
+import classNames from "classnames";
 import * as React from "react";
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from "./constants";
 import { Utils } from "./utils";
@@ -15,7 +15,7 @@ class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 
   public render() {
     var activeTodoWord = Utils.pluralize(this.props.count, 'item');
-    var clearButton = null;
+    var clearButton: React.ReactNode = null;
 
     if (this.props.completedCount > 0) {
       clearButton = (

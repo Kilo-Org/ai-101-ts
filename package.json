@@ -18,6 +18,6 @@
   "devDependencies": {
     "browserify": "^16.2.3",
     "node-static": "^0.7.11",
-    "typescript": "^2.9.2"
+    "typescript": "^4.9.5"
   }
 }
