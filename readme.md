@@ -1,9 +1,6 @@
 # TypeScript & React TodoMVC Example
 
-To compile the TypeScript in this project:
+Uses webpack for bundling.
 
 	$ npm run build
-
-To run the app:
-
-	$ npm run start
+	$ npm start
