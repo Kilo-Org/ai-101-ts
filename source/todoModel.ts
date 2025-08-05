@@ -18,13 +18,13 @@ class TodoModel implements ITodoModel {
   public todos : Array<ITodo>;
   public onChanges : Array<any>;
 
-  constructor(key) {
+  constructor(key: string) {
     this.key = key;
     this.todos = Utils.store(key);
     this.onChanges = [];
   }
 
-  public subscribe(onChange) {
+  public subscribe(onChange: () => void) {
     this.onChanges.push(onChange);
   }
 

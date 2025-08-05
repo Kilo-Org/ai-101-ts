@@ -32,7 +32,7 @@ class Utils {
   }
 
   public static extend(...objs : any[]) : any {
-    var newObj = {};
+    var newObj: any = {};
     for (var i = 0; i < objs.length; i++) {
       var obj = objs[i];
       for (var key in obj) {

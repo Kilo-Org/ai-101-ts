@@ -1,37 +1,32 @@
 {
     "compilerOptions": {
-        "target": "es2017",
+        "target": "es2020",
+        "lib": ["dom", "dom.iterable", "es6"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
         "module": "commonjs",
         "moduleResolution": "node",
-        "isolatedModules": false,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": false,
         "jsx": "react-jsx",
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
         "declaration": false,
-        "noImplicitAny": false,
         "removeComments": true,
-        "noLib": false,
         "preserveConstEnums": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
-    "filesGlob": [
+    "include": [
         "**/*.ts",
-        "**/*.tsx",
-        "!node_modules/**"
+        "**/*.tsx"
     ],
-    "files": [
-        "constants.ts",
-        "interfaces.d.ts",
-        "todoModel.ts",
-        "utils.ts",
-        "app.tsx",
-        "footer.tsx",
-        "todoItem.tsx"
-    ],
-    "exclude": [],
-    "baseUrl": "types",
-    "typeRoots": ["types"]
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }

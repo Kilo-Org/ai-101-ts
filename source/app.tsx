@@ -2,13 +2,11 @@
 /*jshint white:false */
 /*jshint trailing:false */
 /*jshint newcap:false */
-/*global React, Router*/
 
 /// <reference path="./interfaces.d.ts"/>
 
-declare var Router;
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
 import { TodoModel } from "./todoModel";
 import { TodoFooter } from "./footer";
 import { TodoItem } from "./todoItem";
@@ -27,13 +25,28 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
   }
 
   public componentDidMount() {
-    var setState = this.setState;
-    var router = Router({
-      '/': setState.bind(this, {nowShowing: ALL_TODOS}),
-      '/active': setState.bind(this, {nowShowing: ACTIVE_TODOS}),
-      '/completed': setState.bind(this, {nowShowing: COMPLETED_TODOS})
-    });
-    router.init('/');
+    // Handle hash-based routing manually since we're using hash navigation
+    this.handleHashChange();
+    window.addEventListener('hashchange', this.handleHashChange.bind(this));
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener('hashchange', this.handleHashChange.bind(this));
+  }
+
+  private handleHashChange() {
+    const hash = window.location.hash.replace('#', '') || '/';
+    let newShowing = ALL_TODOS;
+    
+    if (hash === '/active') {
+      newShowing = ACTIVE_TODOS;
+    } else if (hash === '/completed') {
+      newShowing = COMPLETED_TODOS;
+    }
+    
+    if (this.state.nowShowing !== newShowing) {
+      this.setState({ nowShowing: newShowing });
+    }
   }
 
   public handleNewTodoKeyDown(event : React.KeyboardEvent) {
@@ -43,11 +56,12 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
     event.preventDefault();
 
-    var val = (ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value.trim();
+    const target = event.target as HTMLInputElement;
+    var val = target.value.trim();
 
     if (val) {
       this.props.model.addTodo(val);
-      (ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value = '';
+      target.value = '';
     }
   }
 
@@ -129,7 +143,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
           count={activeTodoCount}
           completedCount={completedCount}
           nowShowing={this.state.nowShowing}
-          onClearCompleted={ e=> this.clearCompleted() }
+          onClearCompleted={ (e: any) => this.clearCompleted() }
         />;
     }
 
@@ -160,7 +174,6 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
         <header className="header">
           <h1>todos</h1>
           <input
-            ref="newField"
             className="new-todo"
             placeholder="What needs to be done?"
             onKeyDown={ e => this.handleNewTodoKeyDown(e) }
@@ -176,11 +189,11 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
 var model = new TodoModel('react-todos');
 
+const container = document.getElementsByClassName('todoapp')[0];
+const root = ReactDOM.createRoot(container);
+
 function render() {
-  ReactDOM.render(
-    <TodoApp model={model}/>,
-    document.getElementsByClassName('todoapp')[0]
-  );
+  root.render(<TodoApp model={model}/>);
 }
 
 model.subscribe(render);
