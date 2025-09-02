@@ -1,7 +1,17 @@
+// Priority type definition and constants
+type Priority = 'high' | 'medium' | 'low';
+
+const PRIORITY = {
+  HIGH: 'high' as Priority,
+  MEDIUM: 'medium' as Priority,
+  LOW: 'low' as Priority
+} as const;
+
 interface ITodo {
   id: string,
   title: string,
-  completed: boolean
+  completed: boolean,
+  priority: Priority
 }
 
 interface ITodoItemProps {
@@ -33,7 +43,7 @@ interface ITodoModel {
   onChanges : Array<any>;
   subscribe(onChange);
   inform();
-  addTodo(title : string);
+  addTodo(title : string, priority: Priority);
   toggleAll(checked);
   toggle(todoToToggle);
   destroy(todo);
@@ -47,5 +57,6 @@ interface IAppProps {
 
 interface IAppState {
   editing? : string | null;
-  nowShowing? : string
+  nowShowing? : string;
+  selectedPriority: Priority;
 }

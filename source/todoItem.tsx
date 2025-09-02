@@ -79,6 +79,15 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
   }
 
   public render() {
+    const renderPriorityBadge = () => {
+      if (this.props.todo.priority === 'high') {
+        return <span className="priority-badge priority-high">HIGH</span>;
+      } else if (this.props.todo.priority === 'low') {
+        return <span className="priority-badge priority-low">LOW</span>;
+      }
+      return null; // No badge for medium priority
+    };
+
     return (
       <li className={classNames({
         completed: this.props.todo.completed,
@@ -93,6 +102,7 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
           />
           <label onDoubleClick={ e => this.handleEdit() }>
             {this.props.todo.title}
+            {renderPriorityBadge()}
           </label>
           <button className="destroy" onClick={this.props.onDestroy} />
         </div>

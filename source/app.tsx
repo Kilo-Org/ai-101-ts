@@ -20,7 +20,8 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
     super(props);
     this.state = {
       nowShowing: ALL_TODOS,
-      editing: null
+      editing: null,
+      selectedPriority: 'medium' as Priority
     };
   }
 
@@ -60,9 +61,13 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
     var val = target.value.trim();
 
     if (val) {
-      this.props.model.addTodo(val);
+      this.props.model.addTodo(val, this.state.selectedPriority);
       target.value = '';
     }
+  }
+
+  public handlePriorityChange(event : React.ChangeEvent<HTMLSelectElement>) {
+    this.setState({ selectedPriority: event.target.value as Priority });
   }
 
   public toggleAll(event : React.FormEvent) {
@@ -173,12 +178,23 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
       <div>
         <header className="header">
           <h1>todos</h1>
-          <input
-            className="new-todo"
-            placeholder="What needs to be done?"
-            onKeyDown={ e => this.handleNewTodoKeyDown(e) }
-            autoFocus={true}
-          />
+          <div className="todo-input-container">
+            <input
+              className="new-todo"
+              placeholder="What needs to be done?"
+              onKeyDown={ e => this.handleNewTodoKeyDown(e) }
+              autoFocus={true}
+            />
+            <select
+              className="priority-dropdown"
+              value={this.state.selectedPriority}
+              onChange={ e => this.handlePriorityChange(e) }
+            >
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
         </header>
         {main}
         {footer}
